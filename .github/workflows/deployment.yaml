@@ -1,0 +1,42 @@
+name: Deploy and Test API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Set up Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install docker-compose-plugin
+
+    - name: Build and run app with Docker Compose
+      run: 
+        cd src
+        docker compose up -d --build
+
+    - name: Wait for the app to start
+      run: |
+        sleep 30
+
+    - name: Query the API
+      run: |
+        curl --fail http://localhost:8888/healthcheck
+        curl --fail http://localhost:8888
