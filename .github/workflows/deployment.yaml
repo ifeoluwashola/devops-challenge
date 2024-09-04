@@ -22,10 +22,8 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    # - name: Set up Docker Compose
-    #   run: |
-    #     sudo apt-get update
-    #     sudo apt-get install docker-compose-plugin
+    - name: Install jq
+      run: sudo apt-get install -y jq
 
     - name: Build and run app with Docker Compose
       run: |
@@ -38,5 +36,5 @@ jobs:
 
     - name: Query the API
       run: |
-        curl --fail http://localhost:8888/healthcheck
-        curl --fail http://localhost:8888
+        curl --fail http://localhost:8888/healthcheck | jq .
+        curl --fail http://localhost:8888 | jq .
