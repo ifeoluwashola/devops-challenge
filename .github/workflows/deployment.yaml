@@ -28,7 +28,7 @@ jobs:
     #     sudo apt-get install docker-compose-plugin
 
     - name: Build and run app with Docker Compose
-      run: 
+      run: |
         cd src
         docker compose up -d --build
 
