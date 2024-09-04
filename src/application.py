@@ -23,7 +23,8 @@ def status():
 @app.route('/') 
 def main():
     resp = {
-        "App Test":"Alive"
+        "App Test":"Alive",
+        "Pipeline Test": "CI/CD Working 🤞✌✅"
     }
     response = app.response_class(
         response=json.dumps(resp),
