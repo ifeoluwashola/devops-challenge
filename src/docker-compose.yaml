@@ -1,0 +1,12 @@
+version: '3'
+services:
+  api:
+    build: .
+    image: devops_challenge
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_APP=wsgi.py
+      - FLASK_ENV=development
